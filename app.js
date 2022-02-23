@@ -1,7 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
 var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+var morganLogger = require('morgan');
 const mongoConnection = require('./mongo/dbConnection');
 
 // routers
@@ -11,7 +11,7 @@ var employeeRouter = require('./routes/employee');
 var app = express();
 
 mongoConnection.createConnection(); // opens a DB connection
-app.use(logger('dev'));
+app.use(morganLogger('dev')); // prints logs for each request
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

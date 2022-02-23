@@ -115,8 +115,15 @@ router.put('/:id',(req,res,next)=>{
     }
     else
     {
-      console.log(dbResponse.toString());
-      res.sendStatus(204); // 204 status code indicates that the operation was successful
+      if(dbResponse === null)
+      {
+        res.sendStatus(404); // update query did not match any document in DB
+      }
+      else
+      {
+        console.log(dbResponse);
+        res.sendStatus(204); // 204 status code indicates that the operation was successful
+      }
     }
   });
 });
