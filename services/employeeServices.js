@@ -10,6 +10,13 @@ exports.getAllEmployees = (req, callback) => {
     }
   });
 };
+const mapEmployeeResponse = (response) =>{
+  return {
+    'employeeId': response[0].empid || '',
+    'employeeName': response[0].name || '',
+    'workLocation': response[0].city || '',
+  };
+}
 
 exports.getEmployeeById = (req, employeeId, callback) => {
 	console.log('employee service');
@@ -18,7 +25,7 @@ exports.getEmployeeById = (req, employeeId, callback) => {
 	  if (error) {
 		return callback(error);
 	  } else {
-		return callback(null, response);
+		return callback(null, mapEmployeeResponse(response));
 	  }
 	});
   };

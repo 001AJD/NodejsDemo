@@ -18,12 +18,12 @@ exports.getAllEmployeesDbQuery = (req, query, callback) => {
 exports.getEmployeeByIdDbQuery = (req, query, callback) => {
   employee.find(query, (error, dbResponse) => {
     if (error) {
-      return callback(error);
+      return callback({'errorCode' : 500, 'errorMsg' : 'Internal Server Error'});
     } else {
       console.log(dbResponse);
       // check if db response has data
       if (dbResponse.length === 0) {
-        return callback({'errStatusCode':404,'errMsg':'No Data found'});
+        return callback({'errorCode':404,'errorMsg':'No Data found'});
       } else {
         return callback(null, dbResponse);
       }

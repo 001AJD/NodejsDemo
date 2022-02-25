@@ -1,4 +1,5 @@
 const employeeServices = require('../services/employeeServices');
+const utils = require('../utilities/utils');
 // implement frameError function to handle error scenarios
 // add security headers in the response
 
@@ -17,7 +18,7 @@ exports.getEmployeeById = (req, res, next) => {
   const employeeId = req.params.id; //TODO validate/sanitize input params, if invalid params response with bad request status code
   employeeServices.getEmployeeById(req, employeeId, (error, response) => {
     if (error) {
-      res.send(error);
+      utils.FrameAndSendErrorResponse(error, req, res, next);
     } else {
       res.send(response);
     }
