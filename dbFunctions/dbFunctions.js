@@ -1,14 +1,17 @@
 const employee = require('../mongo/Employee');
+const utils = requires('../utilities/utils.js');
 exports.getAllEmployeesDbQuery = (req, query, callback) => {
   employee.find(query, (error, dbResponse) => {
     if (error) {
+      utils.addLog(req,"dbFunctions=>getAllEmployeesDbQuery");
       return callback(error);
     } else {
-      console.log(dbResponse);
       // check if db response has data
       if (dbResponse.length === 0) {
+        utils.addLog(req,"dbFunctions=>getAllEmployeesDbQuery");
         return callback(error);
       } else {
+        utils.addLog(req,"dbFunctions=>getAllEmployeesDbQuery");
         return callback(null, dbResponse);
       }
     }

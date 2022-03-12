@@ -1,11 +1,13 @@
 const dbFunctions = require('../dbFunctions/dbFunctions');
+const utils = require('../utilities/utils');
 exports.getAllEmployees = (req, callback) => {
-  console.log('employee service');
   const query = {};
   dbFunctions.getAllEmployeesDbQuery(req, query, (error, response) => {
     if (error) {
+      utils.addLog(req,"employeeServices=>getAllEmployees");
       return callback(error);
     } else {
+      utils.addLog(req,"employeeServices=>getAllEmployees");
       return callback(null, response);
     }
   });

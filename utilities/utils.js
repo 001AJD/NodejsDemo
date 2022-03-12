@@ -1,18 +1,4 @@
-require('dotenv').config(); // loads .env file into process env
-exports.validateApiKey = (req, res, next)=>{
-	let apiKey = req.get('x-api-key') || '';
-	console.log('apiKey ==> '+apiKey);
-	console.log('internal secret key => '+process.env.ApiKey)
-	if(apiKey !== process.env.ApiKey)
-	{
-		res.sendStatus(403);
-	}
-	else
-	{
-		next();
-	}
-}
-
+const { logger } = require('./logger');
 exports.FrameAndSendErrorResponse = (errorObject, req, res, next)=>{
 	let errCode = errorObject.errorCode || 500;
 	if(errCode === 404)
@@ -23,4 +9,12 @@ exports.FrameAndSendErrorResponse = (errorObject, req, res, next)=>{
 	{
 		res.sendStatus(errCode);
 	}
+}
+
+exports.addLog = (req,message)=>{
+ const logObject = {
+	 path : req,
+	 message: message
+ };
+ logger.error(logObject);
 }

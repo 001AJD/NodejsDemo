@@ -1,21 +1,23 @@
-var createError = require('http-errors');
-var express = require('express');
-var cookieParser = require('cookie-parser');
-var morganLogger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const morganLogger = require('morgan');
 const mongoConnection = require('./mongo/dbConnection');
+const { validateApiKey } = require('./middlewares/validateApiKey');
 
 // routers
-var indexRouter = require('./routes/index');
-var employeeRouter = require('./routes/employee');
+const indexRouter = require('./routes/index');
+const employeeRouter = require('./routes/employee');
 
-var app = express();
+const app = express();
 
 mongoConnection.createConnection(); // opens a DB connection
-app.use(morganLogger('dev')); // prints logs for each request
+// app.use(morganLogger('dev')); // prints logs for each request
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+app.use(validateApiKey);
 app.use('/', indexRouter);
 app.use('/employee', employeeRouter);
 

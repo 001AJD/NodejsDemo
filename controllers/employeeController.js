@@ -6,8 +6,10 @@ const utils = require('../utilities/utils');
 exports.getAllEmployees = (req, res, next) => {
   employeeServices.getAllEmployees(req, (error, response) => {
     if (error) {
+      utils.addLog(req,"employeeController=>getAllEmployees");
       res.send({ err: error });
     } else {
+      utils.addLog(req,"employeeController=>getAllEmployees");
 		//TODO limit the number of employee returned to 10
       res.send(response);
     }
@@ -32,7 +34,6 @@ exports.addNewEmployee = (req, res, next) => {
     city: req.body.city,
     empid: req.body.empid,
   };
-  console.log(newEmployee);
   employeeServices.addNewEmployee(req, newEmployee, (error, response) => {
     if (error) {
       res.send({ err: error });
